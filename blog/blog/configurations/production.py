@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = False
-cl
+
 # TODO: configurar el dominio al hacer deploy a production
 ALLOWED_HOSTS = ["midominio-production.com"]
 
