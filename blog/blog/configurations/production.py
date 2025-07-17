@@ -3,7 +3,8 @@ from .base import *
 DEBUG = False
 
 # TODO: configurar el dominio al hacer deploy a production
-ALLOWED_HOSTS = ["midominio-production.com"]
+# TODO: para pruebas en local agregar 'localhost', '127.0.0.1'
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','midominio-production.com']
 
 # TODO: configurar db para production
 DATABASES = {
