@@ -4,7 +4,7 @@ DEBUG = False
 
 # TODO: configurar el dominio al hacer deploy a production
 # TODO: para pruebas en local agregar 'localhost', '127.0.0.1'
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,midominio-production.com').split(',')
+ALLOWED_HOSTS = os.getenv('localhost', '127.0.0.1', 'midominio-production.com').split(',')
 
 # TODO: configurar db para production
 DATABASES = {
