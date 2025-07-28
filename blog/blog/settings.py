@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(encoding='utf-8')
 
 DJANGO_ENV = os.getenv('DJANGO_ENV', 'development')
 
