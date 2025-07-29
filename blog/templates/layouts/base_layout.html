@@ -11,16 +11,16 @@
       href="{% static 'assets/favicon.ico' %}" 
       type="image/x-icon"
       />
-     {% comment %}<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>{% endcomment %}
+     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     {% block extra_head_layout %} {% endblock extra_head_layout %}
 
-    {% comment %} <style type="text/tailwindcss">
+    <style type="text/tailwindcss">
       @theme {
-        --mi-color: #0a22bcff;
+        --color-primary: rgba(156, 8, 169, 1);
       }
-    </style> {% endcomment %}
+    </style>
   </head>
-  <body>
+  <body class= "bg-primary"> 
     {% block content_layout %} {% endblock content_layout %}
   </body>
 </html>
