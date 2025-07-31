@@ -21,3 +21,15 @@ class User(AbstractUser):
 
   def __str__(self):
    return self.username
+  
+  @property
+  def is_registered(self):
+    return self.groups.filter(name="Registered").exists()
+  
+  @property
+  def is_collaborator(self):
+    return self.groups.filter(name="Collaborators").exists()
+  
+  @property
+  def is_admin(self):
+    return self.groups.filter(name="Admins").exists()
