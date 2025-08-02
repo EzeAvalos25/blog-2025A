@@ -18,10 +18,10 @@ class Post(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='post')
-  title = models.CharField(max_lengt=200)
-  slug = models.SlugField(unique=True, maxx_length=200, blank=True)
+  title = models.CharField(max_length=200)
+  slug = models.SlugField(unique=True, max_length=200, blank=True)
   content = models.TextField(max_length=10000)
-  created_at = models.DateTimeField(deafult=timezone.now)
+  created_at = models.DateTimeField(default=timezone.now)
   update_at = models.DateTimeField(auto_now=True)
   allow_comments = models.BooleanField(default=True)
 
@@ -53,7 +53,7 @@ class Post(models.Model):
 class Comment(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-  post = models.ForeignKey(Post, on_delete=models.CASCADE, relate_name='comments')
+  post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
   content = models.TextField(max_length=50)
   created_at = models.DateTimeField(auto_now_add=True)
   update_at = models.DateTimeField(auto_now=True)
