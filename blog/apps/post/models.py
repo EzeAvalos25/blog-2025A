@@ -32,23 +32,30 @@ class Post(models.Model):
   def amount_comments(self):
     return self.comments.count()
   
+  @property
+  def amount_images(self):
+    return self.images.count()
+  
+  def generate_unique_slug(self):
+      slug = slugify(self.title)
+      unique_slug = slug
+      num = 1
+
+      while Post.objects.filter(slug=unique_slug).exist():
+          unique_slug = f'{slug}-{num}'
+          num += 1
+
+      return unique_slug
+
   def save(self, *args, **kwargs):
     if not self.slug:
       self.slug = self.generate_unique_slug()
 
-      super().save(*args, **kwargs)
+      super().save(*args, **kwargs)  
 
-  def generate_unique_slug(self):
-    slug = slugify(self.title)
-    unique_slug = slug
-    num = 1
 
-    while Post.objects.filter(slug=unique_slug).exist():
-      unique_slug = f'{slug}-{num}'
-      num += 1
-
-    return unique_slug
-
+      if not self.images.exists():
+           PostImage.objects.create(post=self, image='post/default/post_default.webp')
   
 class Comment(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -86,6 +93,6 @@ class PostImage(models.Model):
   past = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
   image = models.ImageField(upload_to=get_image_path)
   active = models.BooleanField(default=True)
-
+  created_at = models.DateTimeField(auto_now_add=True)
   def __str__(self):
    return f"PostImage{self.id}"
