@@ -93,6 +93,6 @@ class PostImage(models.Model):
   past = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
   image = models.ImageField(upload_to=get_image_path)
   active = models.BooleanField(default=True)
-  created_at = models.DateTimeField(auto_now_add=True)
+  created_at = models.DateTimeField(default=timezone.now)
   def __str__(self):
    return f"PostImage{self.id}"
