@@ -22,11 +22,11 @@ class Post(models.Model):
   slug = models.SlugField(unique=True, max_length=200, blank=True)
   content = models.TextField(max_length=10000)
   created_at = models.DateTimeField(default=timezone.now)
-  update_at = models.DateTimeField(auto_now=True)
+  updated_at = models.DateTimeField(auto_now=True)
   allow_comments = models.BooleanField(default=True)
 
   def __str__(self):
-   return self.title
+    return self.title
   
   @property
   def amount_comments(self):
@@ -41,7 +41,7 @@ class Post(models.Model):
       unique_slug = slug
       num = 1
 
-      while Post.objects.filter(slug=unique_slug).exist():
+      while Post.objects.filter(slug=unique_slug).exists():
           unique_slug = f'{slug}-{num}'
           num += 1
 
@@ -51,10 +51,10 @@ class Post(models.Model):
     if not self.slug:
       self.slug = self.generate_unique_slug()
 
-      super().save(*args, **kwargs)  
+    super().save(*args, **kwargs)  
 
 
-      if not self.images.exists():
+    if not self.images.exists():
            PostImage.objects.create(post=self, image='post/default/post_default.webp')
   
 class Comment(models.Model):
@@ -63,17 +63,17 @@ class Comment(models.Model):
   post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
   content = models.TextField(max_length=50)
   created_at = models.DateTimeField(auto_now_add=True)
-  update_at = models.DateTimeField(auto_now=True)
+  updated_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):
-   return self.id
+   return self.content
 
 def get_image_path(instance, filename):
   post_id = instance.post.id
   images_count = instance.post.images.count()
   # mi imagen.png
   # mi imagen    .png
-  _,base_filename, file_extension = os.path.splitext(filename)
+  base_filename, file_extension = os.path.splitext(filename)
   # post 900945cc-248b-4781-b1e2-776fd079f641_image_1.png
 
   # post_89a82489-53c2-4b35-98ef-cb0b57361de0_image_1.png
@@ -90,7 +90,7 @@ def get_image_path(instance, filename):
 
 
 class PostImage(models.Model):
-  past = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
+  post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
   image = models.ImageField(upload_to=get_image_path)
   active = models.BooleanField(default=True)
   created_at = models.DateTimeField(default=timezone.now)
