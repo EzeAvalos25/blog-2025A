@@ -2,20 +2,21 @@
 
 {% block title_layout %}
   {% block title %}
-    IA
+    IA 
   {% endblock title %}
-     | BLOG
+    | Blog
 {% endblock title_layout %}
 
 {% block extra_head_layout %}
-    {% block extra_head %} {% endblock extra_head %}
+  {% block extra_head %} {% endblock extra_head %}
 {% endblock extra_head_layout %}
-    
+
 {% block content_layout %}
-   {% include 'components/commons/header.html' %}
+  {% include 'components/commons/header.html' %}
   <main class="min-h-[calc(100dvh_-_112px)] flex justify-center">
-   {% block content %} 🏍️Manejar contenido del post {% endblock content %}
+    <div class="container mx-4 md:mx-8 lg:mx-40 bg-pink-100">
+      {% block content %} ⚠️ Manejar contenido del post {% endblock content %}
+    </div>
   </main>
-   {% include 'components/commons/footer.html' %}
+  {% include 'components/commons/footer.html' %}
 {% endblock content_layout %}
-    
